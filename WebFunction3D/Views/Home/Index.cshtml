@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using (Html.BeginForm())
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Построение 3D графика функции</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="input-group" style="margin-top: 10px;">
+                    <span class=" input-group-addon">
+    Введите функцию z(x,y)=</span>
+    @Html.TextBox("Text", null, new { @class = "form-control" })
+            </div>
+                <div class="input-group" style="margin-top: 10px;">
+                    <label>Выбор выходного формата</label>
+                    @*@Html.DropDownList("Terminal", Model.Terminals)*@
+                </div>
+                <div class="btn-group" style="margin-top: 10px;">
+                    <input type="submit" value="Построить" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.Terminal != null)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Результат</h3>
+        </div>
+        <div class="panel-body">
+            @if (Model.Terminal == "png" || Model.Terminal == "gif")
+            {
+                <img id="r1" src="/Home/Image" alt=""/>
+
+            }
+            @if (Model.Terminal == "svg")
+            {
+                @Html.Raw(Model.ResultHtml)
+            }
+        </div>
+    </div>
+}
+

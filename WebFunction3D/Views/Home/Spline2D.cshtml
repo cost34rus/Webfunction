@@ -1,0 +1,201 @@
+﻿<style>
+    .modal-body {
+        height: auto;
+    }
+    .btn-group {
+        z-index: 100;
+        margin-top: 15px;
+        margin-left: 25px;
+        position: absolute;
+    }
+</style>
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+        <div class="btn-group">
+            <span class="btn btn-success glyphicon glyphicon-play-circle" onclick=" drawSpline() "></span>
+            <span class="btn btn-success glyphicon glyphicon-cog" onclick=" showModal() "></span>
+        </div>
+    </div>
+</div>
+<div id="container" style="height: 800px; margin: 0 auto"></div>
+<div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-body">
+            <div id="jsGrid"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@* ReSharper disable once ConstructorCallNotUsed *@
+<script>
+    function showModal() {
+        $('#modal').modal('show');
+        $('#myModal').on('shown.bs.modal', function () {
+            createGrid();
+        });
+    }
+
+    function drawSpline() {
+        var data = JSON.stringify(getData(0));
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Spline2D", "Home")" + "?data=" + data
+        }).done(success);
+    }
+
+    function success(data) {
+        if (data.hasOwnProperty('error') && data.error) {
+            var message = data.alert.message;
+            var type = data.alert.type;
+            notify(message, type);
+        }
+        var chart = $('#container').highcharts();
+        if (chart.series.length === 2) {
+            $('#container').highcharts().get(1).remove();
+        }
+        chart.addSeries({
+            id: 1,
+            data: data,
+            turboThreshold: 10000,
+            marker: {
+                enabled: false
+            },
+            color: "#000000"
+        });
+        createGrid();
+    }
+
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    function getData(seriesName) {
+        var data = $('#container').highcharts().get(seriesName).data;
+        var json = [];
+        for (var i = 0; i < data.length; i++) {
+            json[i] = new Point(data[i].x, data[i].y);
+        }
+        return json;
+    }
+
+    function deletePointOnChart(point) {
+        var series = $('#container').highcharts().get(0);
+        series.setData(point.grid.data);
+    }
+
+    $(function() {
+        $('#container').highcharts({
+            chart: {
+                type: 'scatter',
+                margin: [70, 50, 60, 80],
+                events: {
+                    click: function(e) {
+                        // find the clicked values and the series
+                        var x = e.xAxis[0].value,
+                            y = e.yAxis[0].value,
+                            series = this.series[0];
+
+                        // Add it
+                        series.addPoint([x, y]);
+                        createGrid();
+                    }
+                }
+            },
+            title: {
+                text: 'Cubic spline'
+            },
+            xAxis: {
+                gridLineWidth: 1,
+                minPadding: 0.2,
+                maxPadding: 0.2,
+                maxZoom: 60
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                minPadding: 0.2,
+                maxPadding: 0.2,
+                maxZoom: 60,
+                plotLines: [
+                    {
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }
+                ]
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    id: 0,
+                    lineWidth: 1,
+                    point: {
+                        events: {
+                            'click': function() {
+                                if (this.series.data.length > 1) {
+                                    this.remove();
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            series: [
+                {
+                    id: 0,
+                    data: [[1, 1]]
+                }
+            ]
+        });
+    });
+
+    $(function () {
+        notify("Нажмите на плоскость что бы добавить точку!","success");
+        createGrid();
+    });
+
+    function notify(message, type) {
+        $(function () {
+            new PNotify({
+                text: message,
+                type: type,
+                shadow: false,
+                styling: 'bootstrap3'
+            });
+        });
+    }
+
+    function createGrid() {
+        $("#jsGrid").jsGrid({
+            height: "auto",
+            width: "100%",
+
+            inserting: true,
+            editing: true,
+            sorting: true,
+            paging: true,
+
+            onItemInserted: deletePointOnChart,
+            onItemDeleted: deletePointOnChart,
+
+            data: getData(0),
+
+            fields: [
+                { name: "x", type: "number", width: 230 },
+                { name: "y", type: "number", width: 230 },
+                { type: "control", editButton: false, modeSwitchButton: false }
+            ]
+        });
+    }
+</script>

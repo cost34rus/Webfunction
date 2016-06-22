@@ -1,0 +1,75 @@
+﻿<!DOcTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="~/Scripts/graph3d.js"></script>
+    <script src="~/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="~/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+    <script src="~/Scripts/highcharts/4.1.5/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/4.1.5/modules/exporting.js"></script>
+    <script src="~/Scripts/jsGrid/jsgrid.js"></script>
+    @*<script src="~/Scripts/bootstrap-notify/bootstrap-notify.js"></script>*@
+    <script src="~/Scripts/pnotify/pnotify.custom.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/Content/pnotify/pnotify.custom.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/jsGrid/jsgrid.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/jsGrid/jsgrid-theme.css" />
+    <script type="text/javascript">
+        google.load("visualization", "1");
+
+        // Set callback to run when API is loaded
+        google.setOnLoadCallback(drawVisualization);
+
+        // Called when the Visualization API is loaded.
+        function drawVisualization() {
+            // TODO
+        }
+    </script>
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+    @Styles.Render("~/content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Web Function</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li>
+                        <a class="page-scroll" href="@Url.Action("Graph3D", "Home")">3D Plot</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="@Url.Action("Spline2D", "Home")">Cubic spline</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container body-content" style="margin-top: 20px">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+    </footer>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</body>
+</html>

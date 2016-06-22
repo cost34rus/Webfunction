@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFunction3D", "WebFunction3D\WebFunction3D.csproj", "{20447399-67AE-40D0-8C99-24FF26243D1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFunction3D.Tests", "WebFunction3D.Tests\WebFunction3D.Tests.csproj", "{14BD6BF8-0281-433C-A38B-D4C40BCF291E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFunction3D_core", "WebFunction3D_core\WebFunction3D_core.csproj", "{67F3C556-2EEF-4EC3-A86C-92EF6CAA2FFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{698AABD6-249B-4151-ADD9-8AB154039181}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials-Settings.json = WebEssentials-Settings.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8AAABDB4-CD5D-4D6E-A3B2-AE7212D3FB1E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplineLibrary", "SplineLibrary\SplineLibrary.csproj", "{C27EF328-A9CB-4C19-A7F0-E93AFE431B85}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://doctor-c.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WebFunction3D.Tests\\WebFunction3D.Tests.csproj
+		SccProjectName1 = WebFunction3D.Tests
+		SccLocalPath1 = WebFunction3D.Tests
+		SccProjectUniqueName2 = WebFunction3D\\WebFunction3D.csproj
+		SccProjectName2 = WebFunction3D
+		SccLocalPath2 = WebFunction3D
+		SccProjectUniqueName3 = WebFunction3D_core\\WebFunction3D_core.csproj
+		SccProjectName3 = WebFunction3D_core
+		SccLocalPath3 = WebFunction3D_core
+		SccProjectUniqueName4 = SplineLibrary\\SplineLibrary.csproj
+		SccProjectName4 = SplineLibrary
+		SccLocalPath4 = SplineLibrary
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20447399-67AE-40D0-8C99-24FF26243D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20447399-67AE-40D0-8C99-24FF26243D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20447399-67AE-40D0-8C99-24FF26243D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20447399-67AE-40D0-8C99-24FF26243D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14BD6BF8-0281-433C-A38B-D4C40BCF291E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BD6BF8-0281-433C-A38B-D4C40BCF291E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BD6BF8-0281-433C-A38B-D4C40BCF291E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14BD6BF8-0281-433C-A38B-D4C40BCF291E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67F3C556-2EEF-4EC3-A86C-92EF6CAA2FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F3C556-2EEF-4EC3-A86C-92EF6CAA2FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F3C556-2EEF-4EC3-A86C-92EF6CAA2FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F3C556-2EEF-4EC3-A86C-92EF6CAA2FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27EF328-A9CB-4C19-A7F0-E93AFE431B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27EF328-A9CB-4C19-A7F0-E93AFE431B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27EF328-A9CB-4C19-A7F0-E93AFE431B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27EF328-A9CB-4C19-A7F0-E93AFE431B85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

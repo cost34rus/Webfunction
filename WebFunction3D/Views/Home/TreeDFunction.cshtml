@@ -1,0 +1,38 @@
+﻿@model WebFunction3D.ViewModels.TreeDFunctionViewModel
+@{
+    ViewBag.Title = "Index";
+}
+@using (Html.BeginForm())
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Построение 3D графика функции</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="input-group" style="margin-top: 10px;">
+                    <span class=" input-group-addon">
+                        Введите функцию z(x,y)=
+                    </span>
+                    @Html.TextBox("Function", null, new { @class = "form-control" })
+                </div>
+                <div class="btn-group" style="margin-top: 10px;">
+                    <input type="submit" value="Построить" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Результат</h3>
+    </div>
+    <div class="panel-body">
+        @if (Model != null)
+        {
+            <img id="r1" src="/Home/Image" alt=""/>
+        }
+    </div>
+</div>
+
+

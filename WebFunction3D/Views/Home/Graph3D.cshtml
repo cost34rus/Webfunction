@@ -1,0 +1,165 @@
+﻿@model WebFunction3D.ViewModels.Graph3DViewModel
+@{
+    ViewBag.Title = "Index";
+    var options = new AjaxOptions
+    {
+        Url = @Url.Action("Graph3D", @Model),
+        OnSuccess = "success",
+        HttpMethod = "Post"
+    };
+}
+@using (Ajax.BeginForm("Graph3D", options))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Построение 3D графика функции</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="input-group" style="margin-top: 10px;">
+                    <span class=" input-group-addon">
+                        Введите функцию z(x,y)=
+                    </span>
+                    @Html.TextBox("Function", "sin(x+y)/(x+y)", new { @class = "form-control" })
+                </div>
+                <div class="row">
+                    <div class="input-group col-xs-2" style="margin-top: 10px;">
+                        <span class=" input-group-addon">
+                            min x =
+                        </span>
+                        @Html.TextBox("XFrom", "1", new { @class = "form-control", id = "XFrom" })
+                    </div>
+                    <div class="input-group col-xs-2" style="margin-top: 10px;">
+                        <span class=" input-group-addon">
+                            max x =
+                        </span>
+                        @Html.TextBox("XDo", "50", new { @class = "form-control", id = "XDo" })
+                    </div>
+                    <div class="input-group col-xs-2" style="margin-top: 10px;">
+                        <span class=" input-group-addon">
+                            x step =
+                        </span>
+                        @Html.TextBox("XStep", "1", new { @class = "form-control", id = "XStep" })
+                    </div>
+                    <div class="input-group col-xs-2" style="margin-top: 10px;">
+                        <span class=" input-group-addon">
+                            min y =
+                        </span>
+                        @Html.TextBox("YFrom", "1", new { @class = "form-control", id = "YFrom" })
+                    </div>
+                    <div class="input-group col-xs-2" style="margin-top: 10px;">
+                        <span class=" input-group-addon">
+                            max y =
+                        </span>
+                        @Html.TextBox("YDo", "50", new { @class = "form-control", id = "YDo" })
+                    </div>
+                    <div class="input-group col-xs-2" style="margin-top: 10px;">
+                        <span class=" input-group-addon">
+                            y step =
+                        </span>
+                        @Html.TextBox("YStep", "1", new { @class = "form-control", id = "YStep" })
+                    </div>
+                </div>
+                <div class="btn-group" style="margin-top: 10px;">
+                    <input type="submit" value="Построить" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Результат</h3>
+    </div>
+    <div class="panel-body">
+        <div id="graph2" style="height: 500px"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="graphModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">График</h4>
+            </div>
+            <div class="modal-body">
+                <div id="graph" style="height: 500px;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function drawVisualization() {
+        // TODO
+    }
+
+    function draw() {
+        var func = document.getElementById("Function").value;
+        $.ajax({
+            url: '@Url.Action("Graph3D")',
+            data: func,
+            type: "POST",
+            success: function(data) {
+                var graph = new links.Graph3d(document.getElementById('graph'));
+
+                var options = getOptions();
+
+                // Draw our graph with the created data and options
+                graph.draw(data, options);
+            }
+        });
+    }
+
+    function success(data) {
+        //$('#graphModal').modal('show');
+
+        var graph = new links.Graph3d(document.getElementById('graph2'));
+
+        var options = getOptions();
+        var dataJson = new google.visualization.DataTable(data);
+
+        // Draw our graph with the created data and options
+        graph.draw(dataJson, options);
+    }
+
+    function getOptions() {
+        return {
+            width: '100%',
+            height: '100%',
+            style: 'surface',
+            showAnimationControls: false,
+            showGrid: true,
+            showPerspective: true,
+            showShadow: false,
+            keepAspectRatio: false,
+            verticalRatio: '0.5',
+            animationInterval: '0',
+            animationPreload: false,
+            animationAutoStart: true,
+
+            //xCenter: Number(document.getElementById("xCenter").value) || undefined,
+            //yCenter: Number(document.getElementById("yCenter").value) || undefined,
+
+            xMin: Number(document.getElementById("XFrom").value) || undefined,
+            xMax: Number(document.getElementById("XDo").value) || undefined,
+            xStep: Number(document.getElementById("XStep").value) || undefined,
+            yMin: Number(document.getElementById("YFrom").value) || undefined,
+            yMax: Number(document.getElementById("XDo").value) || undefined,
+            yStep: Number(document.getElementById("YStep").value) || undefined
+            //zMin: Number(document.getElementById("zMin").value) || undefined,
+            //zMax: Number(document.getElementById("zMax").value) || undefined,
+            //zStep: Number(document.getElementById("zStep").value) || undefined,
+
+            //valueMin: Number(document.getElementById("valueMin").value) || undefined,
+            //valueMax: Number(document.getElementById("valueMax").value) || undefined,
+
+            //xBarWidth: Number(document.getElementById("xBarWidth").value) || undefined,
+            //yBarWidth: Number(document.getElementById("yBarWidth").value) || undefined
+        };
+    }
+</script>
